@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, Text, ScrollView, Button, TextInput} from 'react-native';
+import Picker from './src/picker';
 
 class App extends Component {
 
@@ -26,6 +27,7 @@ class App extends Component {
   render() {
     return (
       <View style={styles.background}>
+        <Picker/>
         <TextInput
             value={this.state.myTextInput}
             style={styles.input}
