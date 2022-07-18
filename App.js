@@ -1,48 +1,53 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text, ScrollView} from 'react-native';
-import Generator from './src/generator';
-import Header from './src/header';
-import Input from './src/input';
-import NumList from './src/numlist';
+import {StyleSheet, View, Text, ScrollView, Button, TextInput} from 'react-native';
 
 class App extends Component {
 
   state = {
-    appName: 'My First App',
-    random: [11, 23, 52, 18]
-  }
+    myTextInput: '',
+    alphabet: ['a','b','c','d','e'],
+  };
 
-  onAddRandomNum = () => {
-    let randomNumber = Math.floor(Math.random()* 100)+1;
-    this.setState(prevState => {
+  onAddTextInput = () => {
+    this.setState(prev => {
       return {
-        random: [...prevState.random, randomNumber]
+        myTextInput: '',
+        alphabet: [...prev.alphabet, prev.myTextInput]
       }
     })
   }
 
-  onNumDelete = (position) => {
-    const newArray = this.state.random.filter((num,idx) => {
-      return position != idx
-    });
-
+  onChangeInput = (e) => {
     this.setState({
-      random: newArray
+        myTextInput: e
     })
   }
 
   render() {
     return (
       <View style={styles.background}>
-        {/* <Header name={this.state.appName}></Header>
-        <Generator add={this.onAddRandomNum}/>
-        <ScrollView 
-          style={styles.scrollView}
-          onMomentumScrollBegin={() => alert('begin')}
-        >
-          <NumList numlist={this.state.random} deleteNum={this.onNumDelete}/>
-        </ScrollView > */}
-        <Input/>
+        <TextInput
+            value={this.state.myTextInput}
+            style={styles.input}
+            onChangeText={this.onChangeInput}
+            multiline={true}
+            maxLength={10}
+            // 대문자로 자동 변경
+            autoCapitalize={'none'}
+            // 입력 못하게 막음
+            editable={true}
+        />
+        <Button
+          title="Add Text Input"
+          onPress={this.onAddTextInput}
+        />
+        <ScrollView style={{width: '100%'}}>
+          {
+            this.state.alphabet.map((data, idx) => {
+              return <Text key={idx} style={styles.mainText}>{data}</Text>
+            })
+          }
+        </ScrollView>
       </View>
     )
   }
@@ -72,11 +77,20 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'normal',
     color: 'red',
-    padding: 20
+    padding: 20,
+    margin: 20,
+    backgroundColor: 'pink'
   },
   scrollView: {
     width: '100%'
-  }
+  },
+  input: {
+    width: '100%',
+    backgroundColor: '#cecece',
+    marginTop: 20,
+    fontSize: 25,
+    padding: 10,
+  },
 });
 
 export default App;
