@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, View, Text, ScrollView, Button, TextInput, Image} from 'react-native';
 import Picker from './src/picker';
 import Puppy from './public/puppy.jpeg';
+import Modal from './src/modal';
 
 class App extends Component {
   webImgUrl = 'https://picsum.photos/id/237/200/300';
@@ -29,14 +30,15 @@ class App extends Component {
   render() {
     return (
       <View style={styles.background}>
-        <Image
+        <Modal/>
+        {/* <Image
           source={{uri: this.webImgUrl}}
           style={{width: '100%', height: 700}}
           resizeMode="contain"
           // 이미지 로드가 완료된 후에 콜백함수 실행
           onLoadEnd={() => alert('img come')}
-        />
-        <Picker/>
+        /> */}
+        {/* <Picker/> */}
         {/* <TextInput
             value={this.state.myTextInput}
             style={styles.input}
